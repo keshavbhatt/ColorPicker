@@ -27,14 +27,17 @@ CONFIG += c++11
 SOURCES += \
         colordialog.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        settings.cpp
 
 HEADERS += \
         colordialog.h \
-        mainwindow.h
+        mainwindow.h \
+        settings.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+        settings.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -42,4 +45,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    breeze.qrc
+    breeze.qrc \
+    icons.qrc
