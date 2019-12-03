@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+GenericName=Color Picker
+Name=Color Picker
+Type=Application
+Icon=color-picker
+Keywords=Color Picker;gpick;gcolor;color;colour
+Exec=color-picker %F
+Categories=Utility;Qt;
+Terminal=false
+Name[en_US]=color-picker
