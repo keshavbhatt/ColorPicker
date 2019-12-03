@@ -1,0 +1,78 @@
+name: color-picker
+version: '1.0'
+summary: A colour picker and colour editor for web designers and digital artists
+description: |
+  ColorPicker is an advance screen color picker based on Qt's QColorDialog library, A colour picker and colour editor for web designers and digital artists, created by a designer and digital artist. With Color Picker, identifying the colours, saving etc is quick and easy job.
+grade: stable
+confinement: strict
+icon: snap/gui/icon.png
+base: core18
+
+architectures:
+  - build-on: amd64
+    run-on: amd64
+
+apps:
+  color-picker:
+    command: desktop-launch color-picker
+    environment:
+       DISABLE_WAYLAND: 1
+    desktop: usr/share/applications/color-picker.desktop
+    plugs:
+        - home
+        - unity7
+        - opengl
+        - pulseaudio
+        - x11
+        - alsa
+        - desktop
+        - gsettings
+        - desktop-legacy
+
+plugs:
+  gsettings:
+  gtk-3-themes:
+    interface: content
+    target: $SNAP/data-dir/themes
+    default-provider: gtk-common-themes
+  icon-themes:
+    interface: content
+    target: $SNAP/data-dir/icons
+    default-provider: gtk-common-themes
+  sound-themes:
+    interface: content
+    target: $SNAP/data-dir/sounds
+    default-provider: gtk-common-themes
+  qt551:
+    interface: content
+    target: $SNAP/qt551
+    default-provider: qt551
+
+parts:
+   application:
+     source-type: git
+     source: https://github.com/keshavbhatt/ColorPicker.git
+     plugin: qmake
+     qt-version: qt5
+     override-build: |
+            snapcraftctl build
+            sed -i 's|Icon=.*|Icon=${SNAP}/meta/gui/icon.png|g' ${SNAPCRAFT_PART_SRC}/color-picker.desktop
+            cp -rf ${SNAPCRAFT_PART_SRC}/color-picker.desktop ${SNAPCRAFT_PART_INSTALL}/usr/share/applications/color-picker.desktop
+     after: [desktop-qt5]
+
+   snap-launcher:
+     plugin: dump
+     source: snap_launcher/
+   desktop-qt5:
+     plugin: nil
+     build-packages:
+       - build-essential
+       - qtbase5-dev
+       - dpkg-dev
+   cleanup:
+       after: [application]
+       plugin: nil
+       override-prime: |
+          # Remove unneeded stage files to save space
+          cd usr/share
+          rm -rf apport bash-completion bug doc doc-base icons lintian man pam-configs pkgconfig themes upstart zsh
