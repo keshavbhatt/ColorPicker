@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = ColorPicker
+TARGET = color-picker
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -21,6 +21,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+
+CONFIG(release, debug|release):DEFINES += QT_NO_DEBUG_OUTPUT
 
 CONFIG += c++11
 
@@ -47,3 +49,21 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     breeze.qrc \
     icons.qrc
+
+# Deployment
+isEmpty(PREFIX){
+ PREFIX = /usr
+}
+
+BINDIR  = $$PREFIX/bin
+DATADIR = $$PREFIX/share
+
+target.path = $$BINDIR
+
+icon.files = icons/app.png
+icon.path = $$DATADIR/icons/hicolor/512x512/apps/
+
+desktop.files = color-picker.desktop
+desktop.path = $$DATADIR/applications/
+
+INSTALLS += target icon desktop
