@@ -7,6 +7,7 @@
 #include <QListWidget>
 #include <QLineEdit>
 #include <QHBoxLayout>
+#include <QFile>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -64,6 +65,7 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
 
+    load_saved_colors();
     this->adjustSize();
 }
 
@@ -83,55 +85,92 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::load_saved_colors(){
+    QFile file(setting_path+"/saved.colors");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+      return;
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+      QString line = in.readLine();
+      qDebug()<<line;
+      add_to_table(line,false);
+    }
+    file.close();
+}
+
+void MainWindow::add_to_table(const QString colorStr,bool saving){
+    QColor color = QColor(colorStr);
+    if(color.isValid()){
+        int nextRow;
+        int row = ui->saved->rowCount();
+        if(row==0){
+            nextRow = 0;
+        }else{
+            nextRow = row++;
+        }
+        if(saving){
+            QColor color =colorDialog->currentColor();
+            //save color to saved.colors file
+            save_color(color);
+        }
+        //data
+        QString html =  color.name();
+        QString hsv =   getHSV(color);
+        QString hexArgb = color.name(QColor::HexArgb);
+        QString rgb = getRGB(color);
+        QString cymk = getCMYK(color);
+
+        QStringList columnData;
+        columnData<<html<<hexArgb<<hsv<<rgb<<cymk<<"color"<<"delete";
+
+        qDebug()<<columnData;
+        //insertRow
+        ui->saved->insertRow(nextRow);
+        //add column
+        for (int i = 0; i < columnData.count(); i++) {
+
+            if(columnData.at(i)=="color"){
+                QPushButton *color = new QPushButton(0);
+                color->setStyleSheet("background-color:"+html+";border:0px;");
+                connect(color,&QPushButton::clicked,[=](){
+                    colorDialog->setCurrentColor(QColor(html));
+                });
+                ui->saved->setCellWidget(nextRow,i,color);
+                this->update();
+            }else if(columnData.at(i)=="delete"){
+                QPushButton *del = new QPushButton("Delete",0);
+                del->setIcon(QIcon(":/dark/delete.png"));
+                del->setStyleSheet("border:0px;");
+                connect(del,&QPushButton::clicked,[=](){
+                    ui->saved->removeRow(ui->saved->rowAt(del->y()));//ui.saved.removerow(nextRow);
+                });
+                ui->saved->setCellWidget(nextRow,i,del);
+                ui->saved->viewport()->resize(ui->saved->viewport()->width(),ui->saved->viewport()->height()+1);
+                ui->saved->viewport()->resize(ui->saved->viewport()->width(),ui->saved->viewport()->height()-1);
+            }else{
+                ui->saved->setItem(nextRow, i,
+                                    new QTableWidgetItem(columnData.at(i)));
+            }
+        }
+    }else{
+        invalidColor();
+    }
+}
+
+void MainWindow::save_color(const QColor color){
+    QFile file(setting_path+"/saved.colors");
+    if (!file.open(QIODevice::Append | QIODevice::Text))
+      return;
+    QTextStream out(&file);
+    out << color.name(QColor::HexArgb)<< "\n";
+    file.close();
+}
+
 void MainWindow::on_save_clicked()
 {
-    int nextRow;
-    int row = ui->saved->rowCount();
-    if(row==0){
-        nextRow = 0;
-    }else{
-        nextRow = row++;
-    }
     QColor color =colorDialog->currentColor();
-    //data
-    QString html =  color.name();
-    QString hsv =   getHSV(color);
-    QString hexArgb = color.name(QColor::HexArgb);
-    QString rgb = getRGB(color);
-    QString cymk = getCMYK(color);
-
-    QStringList columnData;
-    columnData<<html<<hexArgb<<hsv<<rgb<<cymk<<"color"<<"delete";
-
-    qDebug()<<columnData;
-    //insertRow
-    ui->saved->insertRow(nextRow);
-    //add column
-    for (int i = 0; i < columnData.count(); i++) {
-
-        if(columnData.at(i)=="color"){
-            QPushButton *color = new QPushButton(0);
-            color->setStyleSheet("background-color:"+html+";border:0px;");
-            connect(color,&QPushButton::clicked,[=](){
-                colorDialog->setCurrentColor(QColor(html));
-            });
-            ui->saved->setCellWidget(nextRow,i,color);
-            this->update();
-        }else if(columnData.at(i)=="delete"){
-            QPushButton *del = new QPushButton("Delete",0);
-            del->setIcon(QIcon(":/dark/delete.png"));
-            del->setStyleSheet("border:0px;");
-            connect(del,&QPushButton::clicked,[=](){
-                ui->saved->removeRow(ui->saved->rowAt(del->y()));//ui.saved.removerow(nextRow);
-            });
-            ui->saved->setCellWidget(nextRow,i,del);
-            ui->saved->viewport()->resize(ui->saved->viewport()->width(),ui->saved->viewport()->height()+1);
-            ui->saved->viewport()->resize(ui->saved->viewport()->width(),ui->saved->viewport()->height()-1);
-        }else{
-            ui->saved->setItem(nextRow, i,
-                                new QTableWidgetItem(columnData.at(i)));
-        }
-    }
+    add_to_table(color.name(QColor::HexArgb),true);
 }
 
 QString MainWindow::getHSV(const QColor color){

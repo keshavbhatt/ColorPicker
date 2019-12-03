@@ -35,6 +35,9 @@ private slots:
 
     void on_actionSettings_triggered();
 
+    void load_saved_colors();
+    void save_color(const QColor color);
+    void add_to_table(const QString colorStr, bool saving);
 private:
     Ui::MainWindow *ui;
     ColorDialog *colorDialog = nullptr;
