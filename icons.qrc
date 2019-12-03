@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/app.png</file>
+        <file>icons/app-32.png</file>
+        <file>icons/app-64.png</file>
+        <file>icons/app-128.png</file>
+        <file>icons/donate_paypal.png</file>
+        <file>icons/rate.png</file>
+        <file>icons/remove2.png</file>
+        <file>icons/url.png</file>
+        <file>icons/close.png</file>
+        <file>icons/settings.png</file>
+    </qresource>
+</RCC>
