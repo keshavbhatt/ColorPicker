@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setWindowTitle(qAppName());
+    this->setWindowTitle(QCoreApplication::applicationName());
 
     settings.setObjectName("app_settings");
     setting_path =  QStandardPaths::writableLocation(QStandardPaths::DataLocation);
@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     settingsWidget = new Settings(this,setting_path);
-    settingsWidget->setWindowTitle(qAppName()+"| Settings");
+    settingsWidget->setWindowTitle(QCoreApplication::applicationName()+" | Settings");
     settingsWidget->setWindowFlags(Qt::Window);
     connect(settingsWidget,&Settings::empty_saved_table,[=](){
         ui->saved->clearContents();
