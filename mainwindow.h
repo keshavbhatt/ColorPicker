@@ -38,6 +38,7 @@ private slots:
     void load_saved_colors();
     void save_color(const QColor color);
     void add_to_table(const QString colorStr, bool saving);
+    void delete_color_from_saved_colors_file(const QString hexArgb);
 private:
     Ui::MainWindow *ui;
     ColorDialog *colorDialog = nullptr;

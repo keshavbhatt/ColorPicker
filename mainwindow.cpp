@@ -143,6 +143,7 @@ void MainWindow::add_to_table(const QString colorStr,bool saving){
                 del->setIcon(QIcon(":/dark/delete.png"));
                 del->setStyleSheet("border:0px;");
                 connect(del,&QPushButton::clicked,[=](){
+                    delete_color_from_saved_colors_file(hexArgb);
                     ui->saved->removeRow(ui->saved->rowAt(del->y()));//ui.saved.removerow(nextRow);
                 });
                 ui->saved->setCellWidget(nextRow,i,del);
@@ -155,6 +156,24 @@ void MainWindow::add_to_table(const QString colorStr,bool saving){
         }
     }else{
         invalidColor();
+    }
+}
+
+void MainWindow::delete_color_from_saved_colors_file(const QString hexArgb){
+    QFile file(setting_path+"/saved.colors");
+    if(file.open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        QString s;
+        QTextStream t(&file);
+        while(!t.atEnd())
+        {
+            QString line = t.readLine();
+            if(!line.contains(hexArgb))
+                s.append(line + "\n");
+        }
+        file.resize(0);
+        t << s;
+        file.close();
     }
 }
 
