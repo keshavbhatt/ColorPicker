@@ -10,5 +10,6 @@
         <file>icons/url.png</file>
         <file>icons/close.png</file>
         <file>icons/settings.png</file>
+        <file>icons/app-132.png</file>
     </qresource>
 </RCC>
