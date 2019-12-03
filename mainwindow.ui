@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="icons.qrc">
+    <normaloff>:/icons/app-128.png</normaloff>:/icons/app-128.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <property name="leftMargin">
@@ -60,7 +64,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>Hex-ARGB</string>
+             <string>ARGB</string>
             </property>
            </widget>
           </item>
@@ -115,12 +119,12 @@
           </attribute>
           <column>
            <property name="text">
-            <string>Hex-HTML</string>
+            <string>HTML</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Hex-ARGB</string>
+            <string>ARGB</string>
            </property>
           </column>
           <column>
@@ -169,30 +173,33 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionSettings"/>
-    <addaction name="actionDonate"/>
-    <addaction name="actionAbout"/>
+    <addaction name="actionSettingsAndAbout"/>
+    <addaction name="actionQuit"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
-  <action name="actionAbout">
+  <action name="actionSettingsAndAbout">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
+   </property>
    <property name="text">
-    <string>About</string>
+    <string>Settings and About</string>
    </property>
   </action>
-  <action name="actionDonate">
-   <property name="text">
-    <string>Donate</string>
+  <action name="actionQuit">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/close.png</normaloff>:/icons/close.png</iconset>
    </property>
-  </action>
-  <action name="actionSettings">
    <property name="text">
-    <string>Settings</string>
+    <string>Quit</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
+  <include location="icons.qrc"/>
   <include location="breeze.qrc"/>
  </resources>
  <connections/>

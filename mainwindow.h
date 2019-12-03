@@ -7,6 +7,7 @@
 #include <QStandardPaths>
 #include <QDir>
 
+#include "settings.h"
 #include "colordialog.h"
 
 namespace Ui {
@@ -33,17 +34,22 @@ private slots:
 
     void setStyle(QString fname);
 
-    void on_actionSettings_triggered();
+
 
     void load_saved_colors();
     void save_color(const QColor color);
     void add_to_table(const QString colorStr, bool saving);
     void delete_color_from_saved_colors_file(const QString hexArgb);
+    void on_actionSettingsAndAbout_triggered();
+
+    void on_actionQuit_triggered();
+
 private:
     Ui::MainWindow *ui;
     ColorDialog *colorDialog = nullptr;
     QString setting_path;
     QSettings settings;
+    Settings *settingsWidget = nullptr;
 };
 
 #endif // MAINWINDOW_H

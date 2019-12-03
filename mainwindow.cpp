@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle(qAppName());
 
-    settings.setObjectName("settings");
+    settings.setObjectName("app_settings");
     setting_path =  QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 
     if(!QDir(setting_path).exists()){
@@ -25,6 +25,27 @@ MainWindow::MainWindow(QWidget *parent) :
         d.mkpath(setting_path);
     }
 
+    settingsWidget = new Settings(this,setting_path);
+    settingsWidget->setWindowTitle(qAppName()+"| Settings");
+    settingsWidget->setWindowFlags(Qt::Window);
+    connect(settingsWidget,&Settings::empty_saved_table,[=](){
+        ui->saved->clearContents();
+        ui->saved->model()->removeRows(0, ui->saved->rowCount());
+    });
+    connect(settingsWidget,&Settings::themeChnaged,[=](QString themeName){
+        if(themeName.contains("Dark")){
+            settings.setValue("theme",themeName);
+            setStyle(":/dark.qss");
+        }else if(themeName.contains("Flat")){
+            settings.setValue("theme",themeName);
+            setStyle(":/light.qss");
+        }else if(themeName.contains("System")){
+            settings.setValue("theme",themeName);
+            qApp->setStyleSheet("");
+        }
+    });
+    //load theme settings
+    settingsWidget->setTheme(settings.value("theme","System").toString());
 
     colorDialog = new ColorDialog(this,QColor("green"));
     ui->colorWidgetLayout->addWidget(colorDialog);
@@ -147,6 +168,7 @@ void MainWindow::add_to_table(const QString colorStr,bool saving){
                     ui->saved->removeRow(ui->saved->rowAt(del->y()));//ui.saved.removerow(nextRow);
                 });
                 ui->saved->setCellWidget(nextRow,i,del);
+                //hack to forcibly make the inner table widgets's size
                 ui->saved->viewport()->resize(ui->saved->viewport()->width(),ui->saved->viewport()->height()+1);
                 ui->saved->viewport()->resize(ui->saved->viewport()->width(),ui->saved->viewport()->height()-1);
             }else{
@@ -266,7 +288,12 @@ void MainWindow::invalidColor(){
 }
 
 
-void MainWindow::on_actionSettings_triggered()
+void MainWindow::on_actionSettingsAndAbout_triggered()
 {
+    settingsWidget->showNormal();
+}
 
+void MainWindow::on_actionQuit_triggered()
+{
+    qApp->quit();
 }
