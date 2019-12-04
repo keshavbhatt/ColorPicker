@@ -17,9 +17,13 @@ public:
     ~Settings();
 public slots:
     void setTheme(QString themeName);
+    void setAdvanceMode();
+    void setSimpleMode();
 signals:
     void empty_saved_table();
     void themeChnaged(QString themeName);
+    void switchAdvanceMode(bool checked);
+    void switchSimpleMode(bool checked);
 
 private slots:
     void on_clearColorsPushButton_clicked();
@@ -31,6 +35,10 @@ private slots:
     void on_ratePushButton_clicked();
 
     void on_themeComboBox_currentIndexChanged(const QString &arg1);
+
+    void on_advance_toggled(bool checked);
+
+    void on_simple_toggled(bool checked);
 
 private:
     Ui::Settings *ui;

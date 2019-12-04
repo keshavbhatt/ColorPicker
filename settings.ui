@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>288</width>
-    <height>395</height>
+    <width>326</width>
+    <height>435</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,6 +20,20 @@
       <string>Settings</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QRadioButton" name="advance">
+        <property name="text">
+         <string>Advance Mode</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="simple">
+        <property name="text">
+         <string>Simple Mode</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>

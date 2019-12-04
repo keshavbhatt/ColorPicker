@@ -12,6 +12,24 @@ Settings::Settings(QWidget *parent,QString setting_path) :
     this->setting_path = setting_path;
 }
 
+void Settings::setAdvanceMode(){
+    ui->advance->blockSignals(true);
+    ui->simple->blockSignals(true);
+    ui->advance->setChecked(true);
+    ui->simple->setChecked(false);
+    ui->advance->blockSignals(false);
+    ui->simple->blockSignals(false);
+}
+
+void Settings::setSimpleMode(){
+    ui->advance->blockSignals(true);
+    ui->simple->blockSignals(true);
+    ui->advance->setChecked(false);
+    ui->simple->setChecked(true);
+    ui->advance->blockSignals(false);
+    ui->simple->blockSignals(false);
+}
+
 Settings::~Settings()
 {
     delete ui;
@@ -52,4 +70,14 @@ void Settings::on_ratePushButton_clicked()
 void Settings::on_themeComboBox_currentIndexChanged(const QString &arg1)
 {
     emit themeChnaged(arg1);
+}
+
+void Settings::on_advance_toggled(bool checked)
+{
+    emit switchAdvanceMode(checked);
+}
+
+void Settings::on_simple_toggled(bool checked)
+{
+    emit switchSimpleMode(checked);
 }
