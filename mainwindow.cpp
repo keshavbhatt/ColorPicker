@@ -9,6 +9,7 @@
 #include <QHBoxLayout>
 #include <QFile>
 #include <QClipboard>
+#include <QDesktopWidget>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -45,8 +46,25 @@ MainWindow::MainWindow(QWidget *parent) :
             qApp->setStyleSheet("");
         }
     });
+
     //load theme settings
     settingsWidget->setTheme(settings.value("theme","System").toString());
+
+    connect(settingsWidget,&Settings::switchSimpleMode,[=](bool simpleMode){
+        if(simpleMode){
+            settings.setValue("mode","simple");
+            switchSimpleMode();
+            qDebug()<<"switch simple mode";
+        }
+    });
+
+    connect(settingsWidget,&Settings::switchAdvanceMode,[=](bool advanceMode){
+        if(advanceMode){
+            settings.setValue("mode","advance");
+            switchAdvanceMode();
+            qDebug()<<"switch advance mode";
+        }
+    });
 
     colorDialog = new ColorDialog(this,QColor("green"));
     ui->colorWidgetLayout->addWidget(colorDialog);
@@ -93,6 +111,33 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     load_saved_colors();
+
+    restoreGeometry(settings.value("geometry").toByteArray());
+    restoreState(settings.value("windowState").toByteArray());
+
+    //set mode
+    if(settings.value("mode","advance").toString()=="advance"){
+        switchAdvanceMode();
+        settingsWidget->setAdvanceMode();
+    }else{
+        switchSimpleMode();
+        settingsWidget->setSimpleMode();
+    }
+    this->adjustSize();
+}
+
+void MainWindow::switchAdvanceMode(){
+    settings.setValue("mode","advance");
+    this->setWindowTitle(QApplication::applicationName()+" | AdvanceMode");
+    ui->advanceWidget->show();
+    this->adjustSize();
+}
+void MainWindow::switchSimpleMode(){
+    settings.setValue("mode","simple");
+    this->setWindowTitle(QApplication::applicationName()+" | SimpleMode");
+    ui->advanceWidget->hide();
+    this->hide();
+    this->show();
     this->adjustSize();
 }
 
@@ -310,6 +355,7 @@ void MainWindow::invalidColor(){
 
 void MainWindow::on_actionSettingsAndAbout_triggered()
 {
+    settingsWidget->move(QApplication::desktop()->screen()->rect().center()-this->rect().center());
     settingsWidget->showNormal();
 }
 
@@ -333,4 +379,23 @@ void MainWindow::on_copy_clicked()
 void MainWindow::on_code_textChanged(const QString &arg1)
 {
     ui->copy->setEnabled(!arg1.isEmpty());
+}
+
+
+void MainWindow::closeEvent(QCloseEvent *closeEv){
+    settings.setValue("geometry",saveGeometry());
+    settings.setValue("windowState", saveState());
+    closeEv->accept();
+}
+
+void MainWindow::on_actionswitchMode_triggered()
+{
+    //set mode
+    if(settings.value("mode","advance").toString()=="advance"){
+        switchSimpleMode();
+        settingsWidget->setSimpleMode();
+    }else if(settings.value("mode","advance").toString()=="simple"){
+        switchAdvanceMode();
+        settingsWidget->setAdvanceMode();
+    }
 }

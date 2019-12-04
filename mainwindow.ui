@@ -46,216 +46,218 @@
        <layout class="QVBoxLayout" name="colorWidgetLayout"/>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <property name="leftMargin">
-         <number>7</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>7</number>
-        </property>
-        <property name="bottomMargin">
-         <number>7</number>
-        </property>
-        <item>
-         <layout class="QGridLayout" name="gridLayout">
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label">
+       <widget class="QWidget" name="advanceWidget" native="true">
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="leftMargin">
+          <number>7</number>
+         </property>
+         <property name="topMargin">
+          <number>1</number>
+         </property>
+         <property name="rightMargin">
+          <number>7</number>
+         </property>
+         <property name="bottomMargin">
+          <number>7</number>
+         </property>
+         <item>
+          <layout class="QGridLayout" name="gridLayout">
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>ARGB</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="argb"/>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLineEdit" name="cmyk"/>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>CMYK</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="save">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Save Current Color</string>
+             </property>
+             <property name="icon">
+              <iconset resource="breeze.qrc">
+               <normaloff>:/dark/add.png</normaloff>:/dark/add.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>16</width>
+               <height>16</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="colorIndicator">
+             <property name="minimumSize">
+              <size>
+               <width>10</width>
+               <height>10</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>10</width>
+               <height>10</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border-radius:10px;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="type">
+             <property name="text">
+              <string>-</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="code">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="placeholderText">
+              <string>Select a color code below</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="copy">
+             <property name="text">
+              <string>Copy</string>
+             </property>
+             <property name="icon">
+              <iconset resource="icons.qrc">
+               <normaloff>:/icons/clipboard_copy.png</normaloff>:/icons/clipboard_copy.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>16</width>
+               <height>16</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="saved">
+           <property name="sizeAdjustPolicy">
+            <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+           </property>
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="verticalScrollMode">
+            <enum>QAbstractItemView::ScrollPerPixel</enum>
+           </property>
+           <property name="horizontalScrollMode">
+            <enum>QAbstractItemView::ScrollPerPixel</enum>
+           </property>
+           <property name="cornerButtonEnabled">
+            <bool>false</bool>
+           </property>
+           <attribute name="horizontalHeaderHighlightSections">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="verticalHeaderHighlightSections">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>HTML</string>
+            </property>
+           </column>
+           <column>
             <property name="text">
              <string>ARGB</string>
             </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="argb"/>
-          </item>
-          <item row="0" column="3">
-           <widget class="QLineEdit" name="cmyk"/>
-          </item>
-          <item row="0" column="2">
-           <widget class="QLabel" name="label_4">
+           </column>
+           <column>
+            <property name="text">
+             <string>HSV</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>RGB</string>
+            </property>
+           </column>
+           <column>
             <property name="text">
              <string>CMYK</string>
             </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="Line" name="line">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="save">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+           </column>
+           <column>
             <property name="text">
-             <string>Save Current Color</string>
+             <string>Color</string>
             </property>
-            <property name="icon">
-             <iconset resource="breeze.qrc">
-              <normaloff>:/dark/add.png</normaloff>:/dark/add.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>16</width>
-              <height>16</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QLabel" name="colorIndicator">
-            <property name="minimumSize">
-             <size>
-              <width>10</width>
-              <height>10</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>10</width>
-              <height>10</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-radius:10px;</string>
-            </property>
+           </column>
+           <column>
             <property name="text">
-             <string/>
+             <string>Delete</string>
             </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="type">
-            <property name="text">
-             <string>-</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="code">
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-            <property name="placeholderText">
-             <string>Select a color code below</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="copy">
-            <property name="text">
-             <string>Copy</string>
-            </property>
-            <property name="icon">
-             <iconset resource="icons.qrc">
-              <normaloff>:/icons/clipboard_copy.png</normaloff>:/icons/clipboard_copy.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>16</width>
-              <height>16</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QTableWidget" name="saved">
-          <property name="sizeAdjustPolicy">
-           <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
-          </property>
-          <property name="editTriggers">
-           <set>QAbstractItemView::NoEditTriggers</set>
-          </property>
-          <property name="verticalScrollMode">
-           <enum>QAbstractItemView::ScrollPerPixel</enum>
-          </property>
-          <property name="horizontalScrollMode">
-           <enum>QAbstractItemView::ScrollPerPixel</enum>
-          </property>
-          <property name="cornerButtonEnabled">
-           <bool>false</bool>
-          </property>
-          <attribute name="horizontalHeaderHighlightSections">
-           <bool>false</bool>
-          </attribute>
-          <attribute name="verticalHeaderHighlightSections">
-           <bool>false</bool>
-          </attribute>
-          <column>
-           <property name="text">
-            <string>HTML</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>ARGB</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>HSV</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>RGB</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>CMYK</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Color</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Delete</string>
-           </property>
-          </column>
-         </widget>
-        </item>
-       </layout>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </item>
      </layout>
     </item>
@@ -277,7 +279,14 @@
     <addaction name="actionSettingsAndAbout"/>
     <addaction name="actionQuit"/>
    </widget>
+   <widget class="QMenu" name="menuMode">
+    <property name="title">
+     <string>Mode</string>
+    </property>
+    <addaction name="actionswitchMode"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuMode"/>
   </widget>
   <action name="actionSettingsAndAbout">
    <property name="icon">
@@ -287,6 +296,12 @@
    <property name="text">
     <string>Settings and About</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
   </action>
   <action name="actionQuit">
    <property name="icon">
@@ -295,6 +310,27 @@
    </property>
    <property name="text">
     <string>Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionswitchMode">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/icons/switch.png</normaloff>:/icons/switch.png</iconset>
+   </property>
+   <property name="text">
+    <string>Switch Mode</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WindowShortcut</enum>
    </property>
   </action>
  </widget>

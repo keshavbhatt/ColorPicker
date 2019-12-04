@@ -49,6 +49,12 @@ private slots:
 
     void on_code_textChanged(const QString &arg1);
 
+    void switchAdvanceMode();
+    void switchSimpleMode();
+    void on_actionswitchMode_triggered();
+
+protected slots:
+    void closeEvent(QCloseEvent *closeEv);
 private:
     Ui::MainWindow *ui;
     ColorDialog *colorDialog = nullptr;
