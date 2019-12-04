@@ -11,5 +11,6 @@
         <file>icons/close.png</file>
         <file>icons/settings.png</file>
         <file>icons/app-132.png</file>
+        <file>icons/clipboard_copy.png</file>
     </qresource>
 </RCC>
