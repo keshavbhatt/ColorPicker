@@ -56,6 +56,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(colorDialog,&ColorDialog::currentColorChanged,[=](const QColor color){
         ui->argb->setText(color.name(QColor::HexArgb));
         ui->cmyk->setText(getCMYK(color));
+        ui->code->setText(color.name());
+        ui->type->setText("HTML");
+        ui->colorIndicator->setStyleSheet("background-color:"+ui->code->text().trimmed());
+        ui->saved->clearSelection();
     });
     colorDialog->setCurrentColor(QColor("red"));//TODO load color from last session
 
@@ -158,6 +162,9 @@ void MainWindow::add_to_table(const QString colorStr,bool saving){
                 color->setStyleSheet("background-color:"+html+";border:0px;");
                 connect(color,&QPushButton::clicked,[=](){
                     colorDialog->setCurrentColor(QColor(html));
+                    ui->colorIndicator->setStyleSheet("background-color:"+html);
+                    ui->type->setText("HTML");
+                    ui->code->setText(QColor(html).name());
                 });
                 ui->saved->setCellWidget(nextRow,i,color);
                 this->update();
@@ -167,7 +174,10 @@ void MainWindow::add_to_table(const QString colorStr,bool saving){
                 del->setStyleSheet("border:0px;");
                 connect(del,&QPushButton::clicked,[=](){
                     delete_color_from_saved_colors_file(hexArgb);
-                    ui->saved->removeRow(ui->saved->rowAt(del->y()));//ui.saved.removerow(nextRow);
+                    ui->saved->removeRow(ui->saved->rowAt(del->y()));
+                    ui->type->setText("-");
+                    ui->colorIndicator->setStyleSheet("background-color:transparent;");
+                    ui->code->clear();
                 });
                 ui->saved->setCellWidget(nextRow,i,del);
                 //hack to forcibly make the inner table widgets's size
@@ -199,6 +209,9 @@ void MainWindow::delete_color_from_saved_colors_file(const QString hexArgb){
         t << s;
         file.close();
     }
+    ui->type->setText("-");
+    ui->colorIndicator->setStyleSheet("background-color:transparent;");
+    ui->code->clear();
 }
 
 void MainWindow::save_color(const QColor color){
@@ -214,6 +227,7 @@ void MainWindow::on_save_clicked()
 {
     QColor color =colorDialog->currentColor();
     add_to_table(color.name(QColor::HexArgb),true);
+    ui->saved->scrollToBottom();
 }
 
 QString MainWindow::getHSV(const QColor color){
@@ -243,9 +257,7 @@ void MainWindow::on_saved_cellClicked(int row, int column)
 
     if(ui->saved->item(row,column)==nullptr)
         return;
-    QString colorname;
-
-    colorname = ui->saved->item(row,column)->text();
+    QString colorname  = ui->saved->item(row,column)->text();
 
     QColor color(colorname);
 

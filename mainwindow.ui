@@ -19,6 +19,9 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="spacing">
+     <number>5</number>
+    </property>
     <property name="leftMargin">
      <number>0</number>
     </property>
@@ -33,6 +36,9 @@
     </property>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <property name="topMargin">
        <number>0</number>
       </property>
@@ -191,6 +197,9 @@
         </item>
         <item>
          <widget class="QTableWidget" name="saved">
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+          </property>
           <property name="editTriggers">
            <set>QAbstractItemView::NoEditTriggers</set>
           </property>
