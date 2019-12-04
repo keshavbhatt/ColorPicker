@@ -12,5 +12,6 @@
         <file>icons/settings.png</file>
         <file>icons/app-132.png</file>
         <file>icons/clipboard_copy.png</file>
+        <file>icons/switch.png</file>
     </qresource>
 </RCC>
