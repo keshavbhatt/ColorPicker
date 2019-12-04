@@ -8,6 +8,7 @@
 #include <QLineEdit>
 #include <QHBoxLayout>
 #include <QFile>
+#include <QClipboard>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -66,16 +67,17 @@ MainWindow::MainWindow(QWidget *parent) :
         if(btn->text().contains("Add to Custom Colors")){
             btn->setIconSize(QSize(18,18));
             btn->setIcon(QIcon(":/dark/plus.png"));
-            btn->setText("Add to Temporary Colors");
+            btn->setText("Add to Temporary Swatch");
         }
     }
 
     foreach (QLabel*label, colorDialog->findChildren<QLabel*>())    {
         label->setText(label->text().replace("&",""));
         if(label->text().contains("Custom colors")){
-            label->setAlignment(Qt::AlignCenter);
-            label->setText("Click \"Add to Temporary Colors\" to save\ncolor for this session only. \nor\n"
-                           "Drag a color to save it permanently.");
+//            label->setAlignment(Qt::AlignCenter);
+            label->setTextFormat(Qt::RichText);
+            label->setText("<b>Temporary Swatch</b><br>Click \"Add to Temporary Swatch\"<br> to save color permanently. <br>or<br>"
+                           "Drag color to save for this session.");
         }
     }
 
@@ -245,7 +247,6 @@ void MainWindow::on_saved_cellClicked(int row, int column)
 
     colorname = ui->saved->item(row,column)->text();
 
-
     QColor color(colorname);
 
     int x,y,z,k;
@@ -274,6 +275,13 @@ void MainWindow::on_saved_cellClicked(int row, int column)
     }
     if(color.isValid()){
         colorDialog->setCurrentColor(color);
+        ui->colorIndicator->setStyleSheet("background-color:"+color.name());
+        ui->type->setText(ui->saved->horizontalHeaderItem(column)->text());
+        if(colorname.contains(" ")){
+            ui->code->setText(colorname.replace(" ",","));
+        }else{
+            ui->code->setText(colorname);
+        }
     }else{
         invalidColor();
     }
@@ -296,4 +304,21 @@ void MainWindow::on_actionSettingsAndAbout_triggered()
 void MainWindow::on_actionQuit_triggered()
 {
     qApp->quit();
+}
+
+
+void MainWindow::on_copy_clicked()
+{
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    ui->code->selectAll();
+    QString code = ui->code->text();
+    if(code.contains(" ")){
+        code = code.replace(" ",",");
+    }
+    clipboard->setText(code);
+}
+
+void MainWindow::on_code_textChanged(const QString &arg1)
+{
+    ui->copy->setEnabled(!arg1.isEmpty());
 }

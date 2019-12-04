@@ -44,6 +44,11 @@ private slots:
 
     void on_actionQuit_triggered();
 
+
+    void on_copy_clicked();
+
+    void on_code_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     ColorDialog *colorDialog = nullptr;
