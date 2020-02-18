@@ -22,9 +22,7 @@ apps:
         - home
         - unity7
         - opengl
-        - pulseaudio
         - x11
-        - alsa
         - desktop
         - gsettings
         - desktop-legacy
