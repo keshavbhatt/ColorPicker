@@ -30,27 +30,27 @@ SOURCES += \
         colordialog.cpp \
         main.cpp \
         mainwindow.cpp \
+        previewer.cpp \
         settings.cpp
 
 HEADERS += \
         colordialog.h \
+        gridlayoututil.h \
         mainwindow.h \
+        previewer.h \
         settings.h
 
 FORMS += \
         mainwindow.ui \
+        pattern.ui \
         settings.ui
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
     breeze.qrc \
     icons.qrc
 
-# Deployment
+# Default rules for deployment.
 isEmpty(PREFIX){
  PREFIX = /usr
 }
