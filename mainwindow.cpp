@@ -10,6 +10,10 @@
 #include <QFile>
 #include <QClipboard>
 #include <QDesktopWidget>
+#include <QSpinBox>
+#include <QMimeData>
+
+#include "gridlayoututil.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -45,10 +49,12 @@ MainWindow::MainWindow(QWidget *parent) :
             settings.setValue("theme",themeName);
             qApp->setStyleSheet("");
         }
+        foreach (QSpinBox *spinbox, colorDialog->findChildren<QSpinBox*>()) {
+                spinbox->setFixedSize(54,spinbox->height());
+        }
+        this->resize(this->minimumSize());
     });
 
-    //load theme settings
-    settingsWidget->setTheme(settings.value("theme","System").toString());
 
     connect(settingsWidget,&Settings::switchSimpleMode,[=](bool simpleMode){
         if(simpleMode){
@@ -67,19 +73,54 @@ MainWindow::MainWindow(QWidget *parent) :
     });
 
     colorDialog = new ColorDialog(this,QColor("green"));
+    colorDialog->layout()->setContentsMargins(7,0,0,0);
     ui->colorWidgetLayout->addWidget(colorDialog);
     ui->saved->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->saved->verticalHeader()->setVisible(false);
+    ui->saved->verticalHeader()->setVisible(true);
+    ui->saved->setSelectionMode(QAbstractItemView::NoSelection);
+
+
 
     connect(colorDialog,&ColorDialog::currentColorChanged,[=](const QColor color){
-        ui->argb->setText(color.name(QColor::HexArgb));
-        ui->cmyk->setText(getCMYK(color));
-        ui->code->setText(color.name());
-        ui->type->setText("HTML");
-        ui->colorIndicator->setStyleSheet("background-color:"+ui->code->text().trimmed());
-        ui->saved->clearSelection();
+            ui->argb->setText(color.name(QColor::HexArgb));
+
+            ui->cmyk->setText(getCMYK(color));
+            ui->code->setText(color.name());
+            ui->type->setText("HTML");
+            ui->colorIndicator->setStyleSheet("background-color:"+ui->code->text().trimmed());
+            ui->textBrowser->clear();
+            ui->textBrowser->setText("<body style='text-align:center;color:"+color.name()+" ;'>"
+                                     "<h1>What is Lorem Ipsum?</h1>"
+                                     "<h2>What is Lorem Ipsum?</h2>"
+                                     "<h3>What is Lorem Ipsum?</h3>"
+                                     "<h4>What is Lorem Ipsum?</h4>"
+                                     "<h5>What is Lorem Ipsum?</h5>"
+                                     "<p>"+ui->textBrowser->getParaText()+"</p>"
+                                     "</body>");
+            QString fontColor =  QColor("white").lighter(color.lightness()).name();
+            ui->pattern_generator->setStyleSheet("text-align:left;color:"+fontColor+";padding:4px;border:none;background-color: "
+                                                 "qlineargradient(spread:reflect,"
+                                                 " x1:0, y1:0.482955, x2:1, y2:0.5,"
+                                                 " stop:0 rgba("+QString::number(color.red())
+                                                 +", "+QString::number(color.green())+", "
+                                                 +QString::number(color.blue())+", 255),"
+                                                 " stop:1 rgba("+QString::number(color.red())
+                                                 +", "+QString::number(color.green())+", "
+                                                 +QString::number(color.blue())+", 0));");
+            ui->saved->clearSelection();
+
     });
     colorDialog->setCurrentColor(QColor("red"));//TODO load color from last session
+
+
+    connect(ui->bgColor,&QLineEdit::textChanged,[=](const QString text){
+        QColor color = QColor(text.trimmed());
+        if(color.isValid()){
+            ui->textBrowser->setBackground(color);
+            settings.setValue("background",color.name());
+        }
+    });
+
 
     foreach (QPushButton*btn, colorDialog->findChildren<QPushButton*>())    {
         if(btn->text().contains("Pick Screen Color")){
@@ -104,7 +145,6 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     foreach (QLineEdit*ledit, colorDialog->findChildren<QLineEdit*>())    {
-        qDebug()<<ledit->text();
         if(ledit->text()=="#ff0000"){
             ledit->setMaximumWidth(40000);
         }
@@ -123,8 +163,30 @@ MainWindow::MainWindow(QWidget *parent) :
         switchSimpleMode();
         settingsWidget->setSimpleMode();
     }
-    this->adjustSize();
+
+    pattern_widget = new QWidget(this);
+    pattern_widget->setWindowFlags(Qt::Dialog);
+    pattern_widget->setWindowTitle(QApplication::applicationName()+" | Color Shade");
+    _ui_pattern.setupUi(pattern_widget);
+    //intetionally placed before connection
+    _ui_pattern.factor_spin->setValue(settings.value("pattern_factor",10).toInt());
+    ui->bgColor->setText(settings.value("background","white").toString());
+
+    QFont font = QFont(ui->textBrowser->font());
+            font.setPixelSize(settings.value("zoomF",14).toInt());
+    ui->textBrowser->setFont(font);
+
+    connect(_ui_pattern.factor_spin, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),[=](int value){
+        _patter_factor = value;
+        settings.setValue("pattern_factor",value);
+        ui->pattern_generator->click();
+    });
+
+
+    //keep this function located at last load theme settings
+    settingsWidget->setTheme(settings.value("theme","System").toString());
 }
+
 
 void MainWindow::switchAdvanceMode(){
     settings.setValue("mode","advance");
@@ -165,7 +227,7 @@ void MainWindow::load_saved_colors(){
     QTextStream in(&file);
     while (!in.atEnd()) {
       QString line = in.readLine();
-      qDebug()<<line;
+      //qDebug()<<line;
       add_to_table(line,false);
     }
     file.close();
@@ -196,7 +258,7 @@ void MainWindow::add_to_table(const QString colorStr,bool saving){
         QStringList columnData;
         columnData<<html<<hexArgb<<hsv<<rgb<<cymk<<"color"<<"delete";
 
-        qDebug()<<columnData;
+        //qDebug()<<columnData;
         //insertRow
         ui->saved->insertRow(nextRow);
         //add column
@@ -398,4 +460,109 @@ void MainWindow::on_actionswitchMode_triggered()
         switchAdvanceMode();
         settingsWidget->setAdvanceMode();
     }
+}
+
+void MainWindow::on_pattern_generator_clicked()
+{
+    //clear
+    for (int i = 0; i < _ui_pattern.gridLayout->columnCount(); i++)
+    {
+        GridLayoutUtil::removeColumn(_ui_pattern.gridLayout,i,true);
+    }
+    QColor color = QColor(ui->code->text().trimmed());
+    if(color.isValid())
+    {
+        pattern_widget->setWindowTitle(QApplication::applicationName()+" | Color Shade "+color.name());
+        //draw pattern
+        int d_max = 300;
+        int d_min = 0;
+        int factor_diff = settings.value("pattern_factor",10).toInt();
+        int cols  = 10;
+        int itemscount  = (d_max - d_min)/factor_diff;
+        int factor = 300;
+        for (int i = 0; i < itemscount; i++)
+        {
+            QString colorName,fontColor,factorString;
+            if(factor<=100)
+            {
+                factor = factor - factor_diff;
+                int l_factor = 100 -(factor - 100);
+                colorName =  color.lighter(l_factor).name()+"*"+QString::number(l_factor-100)+"% Lighter";
+                fontColor =  color.darker(l_factor+50).name();
+            }else{
+                factor =  factor - factor_diff;
+                int d_factor;
+                if(factor<=400)
+                    d_factor = factor/3;
+                if(factor<=300)
+                    d_factor = factor/3;
+                if(factor<=200)
+                    d_factor = factor/2;
+                if(factor<=100)
+                    d_factor = factor;
+                colorName =  color.darker(factor).name()+"*"+QString::number(d_factor)+"% Darker";
+                fontColor =  QColor("white").lighter(factor).name();
+            }
+            QPushButton *colorWidget = new QPushButton;
+            colorWidget->setFocusPolicy(Qt::NoFocus);
+            QString colorNameHash =  QString(colorName).split("*").first();
+            factorString = colorName.split("*").last();
+            colorWidget->setStyleSheet("QPushButton{border:none;background:"+colorNameHash+";color:"+fontColor+";}");
+            colorWidget->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+            connect(colorWidget,&QPushButton::clicked,[colorNameHash,this](){
+                colorDialog->setCurrentColor(QColor(colorNameHash.trimmed()));
+            });
+            colorWidget->setText(colorNameHash+"\n"+factorString);
+            int row = _ui_pattern.gridLayout->count()/cols;
+            int col = _ui_pattern.gridLayout->count() % cols;
+            _ui_pattern.gridLayout->addWidget(colorWidget,row,col);
+        }
+
+        if(!pattern_widget->isVisible())
+        {
+            pattern_widget->show();
+        }
+    }
+    else
+    {
+        qDebug()<<"INVALID COLOR cannot generate pattern";
+    }
+}
+
+void MainWindow::on_pickBackground_clicked()
+{
+    if(cDialog == nullptr){
+       cDialog = new QColorDialog(this);
+    }
+    cDialog->setWindowFlags(Qt::Dialog);
+    cDialog->setOptions(QColorDialog::NoButtons | QColorDialog::DontUseNativeDialog);
+    //cDialog->show();
+    foreach (QPushButton*btn, cDialog->findChildren<QPushButton*>())    {
+        if(btn->text().contains("Pick Screen Color")){
+            screenPicker = btn;
+        }
+    }
+    connect(cDialog,&QColorDialog::currentColorChanged,[=](const QColor color){
+        ui->textBrowser->setBackground(color);
+        ui->bgColor->setText(color.name());
+    });
+    if(screenPicker!= nullptr){
+        screenPicker->click();
+    }
+}
+
+void MainWindow::on_zoomin_clicked()
+{
+    QFont font = QFont(ui->textBrowser->font());
+            font.setPixelSize(ui->textBrowser->fontInfo().pixelSize()+1);
+    ui->textBrowser->setFont(font);
+    settings.setValue("zoomF",ui->textBrowser->fontInfo().pixelSize());
+}
+
+void MainWindow::on_zoomout_clicked()
+{
+    QFont font = QFont(ui->textBrowser->font());
+            font.setPixelSize(ui->textBrowser->fontInfo().pixelSize()-1);
+    ui->textBrowser->setFont(font);
+    settings.setValue("zoomF",ui->textBrowser->fontInfo().pixelSize());
 }

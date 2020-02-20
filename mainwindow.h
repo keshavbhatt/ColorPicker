@@ -10,6 +10,8 @@
 #include "settings.h"
 #include "colordialog.h"
 
+#include "ui_pattern.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -53,14 +55,28 @@ private slots:
     void switchSimpleMode();
     void on_actionswitchMode_triggered();
 
+    void on_pattern_generator_clicked();
+
+    void on_pickBackground_clicked();
+
+    void on_zoomin_clicked();
+
+    void on_zoomout_clicked();
+
 protected slots:
     void closeEvent(QCloseEvent *closeEv);
 private:
     Ui::MainWindow *ui;
+    Ui::pattern_widget _ui_pattern;
+
     ColorDialog *colorDialog = nullptr;
     QString setting_path;
     QSettings settings;
     Settings *settingsWidget = nullptr;
+    QWidget *pattern_widget = nullptr;
+    int _patter_factor = 4;
+    QPushButton *screenPicker = nullptr;
+    QColorDialog *cDialog = nullptr;
 };
 
 #endif // MAINWINDOW_H
