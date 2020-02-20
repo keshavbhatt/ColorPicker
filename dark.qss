@@ -329,11 +329,7 @@ QAbstractItemView
     border-radius: 0.2ex;
 }
 
-QWidget:focus,
-QMenuBar:focus
-{
-    border: 0.1ex solid #3daee9;
-}
+
 
 QTabWidget:focus,
 QCheckBox:focus,
@@ -687,14 +683,14 @@ QPushButton:checked
 QPushButton:hover
 {
     background-color: qlineargradient(x1: 0.5, y1: 0.5 x2: 0.5, y2: 1, stop: 0 #454a4f, stop: 0.5 #3b4045);
-    border: 0.1ex solid #3daee9;
+    /*border: 0.1ex solid #3daee9;*/
     color: #eff0f1;
 }
 
 QPushButton:checked:hover
 {
     background-color: qlineargradient(x1: 0.5, y1: 0.5 x2: 0.5, y2: 1, stop: 0 #808386, stop: 0.5 #76797c);
-    border: 0.1ex solid #3daee9;
+    /*border: 0.1ex solid #3daee9;*/
     color: #eff0f1;
 }
 
@@ -706,7 +702,7 @@ QPlainTextEdit:hover,
 QAbstractView:hover,
 QTreeView:hover
 {
-    border: 0.1ex solid #3daee9;
+    /*border: 0.1ex solid #3daee9;*/
     color: #eff0f1;
 }
 
@@ -770,7 +766,7 @@ QComboBox::down-arrow:focus
 
 QAbstractSpinBox
 {
-    padding: 0.5ex;
+    padding: 0.4ex;
     border: 0.1ex solid #76797c;
     background-color: #232629;
     color: #eff0f1;

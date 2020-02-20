@@ -336,11 +336,6 @@ QAbstractItemView
     border-radius: 0.2ex;
 }
 
-QWidget:focus,
-QMenuBar:focus
-{
-    border: 0.1ex solid #33A4DF;
-}
 
 QTabWidget:focus,
 QCheckBox:focus,
@@ -689,7 +684,6 @@ QPlainTextEdit:hover,
 QAbstractView:hover,
 QTreeView:hover
 {
-    border: 0.1ex solid #33A4DF;
     color: #31363B;
 }
 
@@ -749,11 +743,21 @@ QComboBox::down-arrow:focus
     height: 0.6ex;
 }
 
+QSpinBox
+{
+    padding: 0.4ex;
+    border: 0.1ex solid #BAB9B8;
+    background-color: #fcfcfc;
+    color: #31363B;
+    border-radius: 0.2ex;
+    min-width: 7.5ex;
+}
+
 QAbstractSpinBox
 {
-    padding: 0.5ex;
+    padding: 0.4ex;
     border: 0.1ex solid #BAB9B8;
-    background-color: #D9D8D7;
+    background-color: #fcfcfc;
     color: #31363B;
     border-radius: 0.2ex;
     min-width: 7.5ex;
@@ -1628,7 +1632,6 @@ QDoubleSpinBox::down-arrow:off
 
 QPushButton:hover
 {
-    border: 0.1ex solid #3daef3;
     color: #31363B;
 }
 

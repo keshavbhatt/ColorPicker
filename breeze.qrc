@@ -85,5 +85,7 @@
         <file>dark/add.png</file>
         <file>dark/delete.png</file>
         <file>dark/plus.png</file>
+        <file>dark/minus.png</file>
+        <file>dark/grad.png</file>
     </qresource>
 </RCC>
