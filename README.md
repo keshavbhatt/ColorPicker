@@ -30,3 +30,4 @@ Color Picker features include:
 # Screenshot
 ![ColorPicker Application for Linux Desktop](https://github.com/keshavbhatt/ColorPicker/blob/master/screenshots/1.jpg?raw=true)
 ![ColorPicker Application for Linux Settings dialog](https://github.com/keshavbhatt/ColorPicker/blob/master/screenshots/2.jpg?raw=true)
+![ColorPicker Application for Linux Shade dialog](https://github.com/keshavbhatt/ColorPicker/blob/master/screenshots/3.jpg?raw=true)
