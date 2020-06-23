@@ -48,7 +48,8 @@ FORMS += \
 
 RESOURCES += \
     breeze.qrc \
-    icons.qrc
+    icons.qrc \
+    resources.qrc
 
 # Default rules for deployment.
 isEmpty(PREFIX){
