@@ -175,6 +175,12 @@ p, li { white-space: pre-wrap; }
                     <iconset resource="breeze.qrc">
                      <normaloff>:/dark/minus.png</normaloff>:/dark/minus.png</iconset>
                    </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>16</width>
+                     <height>16</height>
+                    </size>
+                   </property>
                   </widget>
                  </item>
                  <item>
@@ -195,6 +201,12 @@ p, li { white-space: pre-wrap; }
                     <iconset resource="breeze.qrc">
                      <normaloff>:/dark/plus.png</normaloff>:/dark/plus.png</iconset>
                    </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>16</width>
+                     <height>16</height>
+                    </size>
+                   </property>
                   </widget>
                  </item>
                  <item>
@@ -208,6 +220,12 @@ p, li { white-space: pre-wrap; }
                    <property name="icon">
                     <iconset resource="breeze.qrc">
                      <normaloff>:/dark/picker.png</normaloff>:/dark/picker.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>16</width>
+                     <height>16</height>
+                    </size>
                    </property>
                   </widget>
                  </item>
@@ -264,49 +282,6 @@ p, li { white-space: pre-wrap; }
            </item>
            <item>
             <widget class="QLineEdit" name="cmyk"/>
-           </item>
-           <item>
-            <widget class="QPushButton" name="save">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Save Current Color</string>
-             </property>
-             <property name="icon">
-              <iconset resource="breeze.qrc">
-               <normaloff>:/dark/add.png</normaloff>:/dark/add.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>16</width>
-               <height>16</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
            </item>
            <item>
             <widget class="QLabel" name="colorIndicator">
@@ -370,6 +345,29 @@ p, li { white-space: pre-wrap; }
           </layout>
          </item>
          <item>
+          <widget class="QPushButton" name="save">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Save Current Color</string>
+           </property>
+           <property name="icon">
+            <iconset resource="breeze.qrc">
+             <normaloff>:/dark/add.png</normaloff>:/dark/add.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>16</width>
+             <height>16</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QTableWidget" name="saved">
            <property name="minimumSize">
             <size>
@@ -396,7 +394,7 @@ p, li { white-space: pre-wrap; }
             <bool>false</bool>
            </attribute>
            <attribute name="verticalHeaderVisible">
-            <bool>true</bool>
+            <bool>false</bool>
            </attribute>
            <attribute name="verticalHeaderHighlightSections">
             <bool>false</bool>
@@ -451,7 +449,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>445</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -525,8 +523,8 @@ p, li { white-space: pre-wrap; }
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="icons.qrc"/>
   <include location="breeze.qrc"/>
+  <include location="icons.qrc"/>
  </resources>
  <connections/>
 </ui>
