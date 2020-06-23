@@ -8,4 +8,4 @@ Keywords=Color Picker;gpick;gcolor;color;colour
 Exec=color-picker %F
 Categories=Utility;Qt;
 Terminal=false
-Name[en_US]=color-picker
+Name[en_US]=Color Picker
