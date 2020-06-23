@@ -628,7 +628,9 @@ QToolBar::separator:vertical
 QPushButton
 {
     color: #eff0f1;
-    background-color: qlineargradient(x1: 0.5, y1: 0.5 x2: 0.5, y2: 1, stop: 0 #3b4045, stop: 0.5 #31363b);
+    background-color:qlineargradient(x1:0,y1:1,x2:0,y2:0,stop:0 rgba(25,25,25,127),stop:1 rgba(38,106,133,75%));
+
+    /*background-color: qlineargradient(x1: 0.5, y1: 0.5 x2: 0.5, y2: 1, stop: 0 #3b4045, stop: 0.5 #31363b);*/
     border-width: 0.1ex;
     border-color: #76797c;
     border-style: solid;
@@ -1551,7 +1553,7 @@ QProgressBar::chunk:horizontal
 QSpinBox,
 QDoubleSpinBox
 {
-    padding-right: 1.5ex;
+    padding-right: 0.4ex;
 }
 
 QSpinBox::up-button,
