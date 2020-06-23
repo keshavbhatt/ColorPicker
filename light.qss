@@ -1555,7 +1555,7 @@ QAbstractSpinBox
 QSpinBox,
 QDoubleSpinBox
 {
-    padding-right: 1.5ex;
+    padding-right: 0.4ex;
 }
 
 QSpinBox::up-button,
