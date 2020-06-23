@@ -533,14 +533,13 @@ void MainWindow::on_pickBackground_clicked()
 {
     if(cDialog == nullptr){
        cDialog = new QColorDialog(this);
-    }
-    cDialog->setWindowFlags(Qt::Dialog);
-    cDialog->setOptions(QColorDialog::NoButtons | QColorDialog::DontUseNativeDialog);
-    //cDialog->show();
-    foreach (QPushButton*btn, cDialog->findChildren<QPushButton*>())    {
-        if(btn->text().contains("Pick Screen Color")){
-            screenPicker = btn;
-        }
+       cDialog->setWindowFlags(Qt::Dialog);
+       cDialog->setOptions(QColorDialog::NoButtons | QColorDialog::DontUseNativeDialog);
+       foreach (QPushButton*btn, cDialog->findChildren<QPushButton*>())    {
+           if(btn->text().contains("Pick Screen Color")){
+               screenPicker = btn;
+           }
+       }
     }
     connect(cDialog,&QColorDialog::currentColorChanged,[=](const QColor color){
         ui->textBrowser->setBackground(color);
