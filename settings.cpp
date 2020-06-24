@@ -2,7 +2,10 @@
 #include "ui_settings.h"
 
 #include <QDesktopServices>
+#include <QGraphicsOpacityEffect>
+#include <QPropertyAnimation>
 #include <QFile>
+#include <QUrl>
 
 Settings::Settings(QWidget *parent,QString setting_path) :
     QWidget(parent),
@@ -12,7 +15,8 @@ Settings::Settings(QWidget *parent,QString setting_path) :
     this->setting_path = setting_path;
 }
 
-void Settings::setAdvanceMode(){
+void Settings::setAdvanceMode()
+{
     ui->advance->blockSignals(true);
     ui->simple->blockSignals(true);
     ui->advance->setChecked(true);
@@ -21,7 +25,8 @@ void Settings::setAdvanceMode(){
     ui->simple->blockSignals(false);
 }
 
-void Settings::setSimpleMode(){
+void Settings::setSimpleMode()
+{
     ui->advance->blockSignals(true);
     ui->simple->blockSignals(true);
     ui->advance->setChecked(false);
@@ -35,7 +40,8 @@ Settings::~Settings()
     delete ui;
 }
 
-void Settings::setTheme(QString themeName){
+void Settings::setTheme(QString themeName)
+{
     if(themeName.contains("Dark")){
         ui->themeComboBox->setCurrentIndex(2);
     }else if(themeName.contains("Flat")){
@@ -80,4 +86,34 @@ void Settings::on_advance_toggled(bool checked)
 void Settings::on_simple_toggled(bool checked)
 {
     emit switchSimpleMode(checked);
+}
+
+void Settings::showAbout()
+{
+    QString mes ="<p align='center' style='-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;'><br /></p>"
+                 "<p align='center' style=' margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;'><img src=':/icons/app-64.png' /></p>"
+                 "<p align='center' style='-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;'><br /></p>"
+                 "<p align='center' style=' margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;'>Designed and Developed</p>"
+                 "<p align='center' style=' margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;'>by <span style=' font-weight:600;'>Keshav Bhatt</span> &lt;keshavnrj@gmail.com&gt;</p>"
+                 "<p align='center' style=' margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;'>Website: https://ktechpit.com</p>"
+                 "<p align='center' style=' margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;'>Runtime: Qt 5.5.1</p>"
+                 "<p align='center' style=' margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;'>Version: "+QApplication::applicationVersion()+"</p>"
+                 "<p align='center' style='-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;'><br /></p>"
+                 "<p align='center' style=' margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;'><a style='color:#4392d0;' href='https://snapcraft.io/search?q=keshavnrj'>More Apps</p>";
+
+    QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect(this);
+    ui->message->setGraphicsEffect(eff);
+    QPropertyAnimation *a = new QPropertyAnimation(eff,"opacity");
+    a->setDuration(1000);
+    a->setStartValue(0);
+    a->setEndValue(1);
+    a->setEasingCurve(QEasingCurve::InCurve);
+    a->start(QPropertyAnimation::DeleteWhenStopped);
+    ui->message->setText(mes);
+    ui->message->show();
+}
+
+void Settings::on_message_linkActivated(const QString &link)
+{
+    QDesktopServices::openUrl(QUrl(link));
 }

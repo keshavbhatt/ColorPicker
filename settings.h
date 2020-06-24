@@ -19,6 +19,7 @@ public slots:
     void setTheme(QString themeName);
     void setAdvanceMode();
     void setSimpleMode();
+    void showAbout();
 signals:
     void empty_saved_table();
     void themeChnaged(QString themeName);
@@ -39,6 +40,9 @@ private slots:
     void on_advance_toggled(bool checked);
 
     void on_simple_toggled(bool checked);
+
+
+    void on_message_linkActivated(const QString &link);
 
 private:
     Ui::Settings *ui;
