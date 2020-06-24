@@ -97,7 +97,7 @@ MainWindow::MainWindow(QWidget *parent) :
                                      "<h5>What is Lorem Ipsum?</h5>"
                                      "<p>"+ui->textBrowser->getParaText()+"</p>"
                                      "</body>");
-            QString fontColor =  QColor("white").lighter(color.lightness()).name();
+            QString fontColor =  QColor("white").lighter(-color.lightness()+300).name();
             ui->pattern_generator->setStyleSheet("text-align:left;color:"+fontColor+";padding:4px;border:none;background-color: "
                                                  "qlineargradient(spread:reflect,"
                                                  " x1:0, y1:0.482955, x2:1, y2:0.5,"
@@ -204,7 +204,13 @@ void MainWindow::switchSimpleMode(){
 }
 
 void MainWindow::setStyle(QString fname)
-{   QFile styleSheet(fname);
+{
+    if(fname.contains("light")){
+        ui->saved->setShowGrid(false);
+    }else{
+        ui->saved->setShowGrid(true);
+    }
+    QFile styleSheet(fname);
     if (!styleSheet.open(QIODevice::ReadOnly)) {
         qWarning("Unable to open file");
     return; }
@@ -419,6 +425,7 @@ void MainWindow::on_actionSettingsAndAbout_triggered()
 {
     settingsWidget->move(QApplication::desktop()->screen()->rect().center()-this->rect().center());
     settingsWidget->showNormal();
+    settingsWidget->showAbout();
 }
 
 void MainWindow::on_actionQuit_triggered()
