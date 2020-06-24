@@ -527,14 +527,6 @@ QPlainTextEdit
     border: 0.1ex solid #76797c;
 }
 
-QHeaderView::section
-{
-    background-color: #76797c;
-    color: #eff0f1;
-    padding: 0.5ex;
-    border: 0.1ex solid #76797c;
-}
-
 QSizeGrip
 {
     border-image: url(:/dark/sizegrip.svg);
@@ -1435,9 +1427,6 @@ QHeaderView::section::vertical::only-one
 {
     border-top: 0.1ex solid #76797c;
     border-left:0ex;
-}
-QHeaderView::section::vertical::last{
-    border-right:0ex;
 }
 
 QHeaderView::section::vertical
