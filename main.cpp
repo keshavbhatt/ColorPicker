@@ -7,6 +7,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("ColorPicker");
     QApplication::setApplicationName("ColorPicker");
     QApplication::setOrganizationName("org.keshavnrj.ubuntu");
+    QApplication::setApplicationVersion("1.0");
     MainWindow w;
     w.show();
 
