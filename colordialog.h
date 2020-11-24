@@ -12,6 +12,8 @@ class ColorDialog : public QColorDialog
     Q_OBJECT
 public:
     ColorDialog(QWidget *parent =nullptr, QColor color =QColor("red"));
+protected slots:
+    void keyPressEvent(QKeyEvent *e);
 };
 
 #endif // COLORDIALOG_H

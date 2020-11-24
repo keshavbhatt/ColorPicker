@@ -10,6 +10,12 @@ ColorDialog::ColorDialog(QWidget *parent,QColor color) :
     setOptions(QColorDialog::NoButtons | QColorDialog::DontUseNativeDialog | QColorDialog::ShowAlphaChannel );
 }
 
+void ColorDialog::keyPressEvent(QKeyEvent *e)
+{
+    //prevent esc key close the ColorDialog widget
+    if(e->key() != Qt::Key_Escape)
+        QDialog::keyPressEvent(e);
+}
 
 
 
