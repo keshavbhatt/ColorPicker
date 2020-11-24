@@ -6,6 +6,7 @@
 #include <QTableWidgetItem>
 #include <QStandardPaths>
 #include <QDir>
+#include <QKeySequence>
 
 #include "settings.h"
 #include "colordialog.h"

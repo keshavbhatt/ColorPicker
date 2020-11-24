@@ -126,6 +126,8 @@ MainWindow::MainWindow(QWidget *parent) :
         if(btn->text().contains("Pick Screen Color")){
             btn->setIconSize(QSize(18,18));
             btn->setIcon(QIcon(":/dark/picker.png"));
+            btn->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_P));
+            btn->setToolTip("Pick color from Screen ("+btn->shortcut().toString()+")");
         }
         if(btn->text().contains("Add to Custom Colors")){
             btn->setIconSize(QSize(18,18));
@@ -137,7 +139,6 @@ MainWindow::MainWindow(QWidget *parent) :
     foreach (QLabel*label, colorDialog->findChildren<QLabel*>())    {
         label->setText(label->text().replace("&",""));
         if(label->text().contains("Custom colors")){
-//            label->setAlignment(Qt::AlignCenter);
             label->setTextFormat(Qt::RichText);
             label->setText("<b>Temporary Swatch</b><br>Click \"Add to Temporary Swatch\"<br> to save color permanently. <br>or<br>"
                            "Drag color to save for this session.");
@@ -182,19 +183,20 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->pattern_generator->click();
     });
 
-
     //keep this function located at last load theme settings
     settingsWidget->setTheme(settings.value("theme","System").toString());
 }
 
 
-void MainWindow::switchAdvanceMode(){
+void MainWindow::switchAdvanceMode()
+{
     settings.setValue("mode","advance");
     this->setWindowTitle(QApplication::applicationName()+" | AdvanceMode");
     ui->advanceWidget->show();
     this->adjustSize();
 }
-void MainWindow::switchSimpleMode(){
+void MainWindow::switchSimpleMode()
+{
     settings.setValue("mode","simple");
     this->setWindowTitle(QApplication::applicationName()+" | SimpleMode");
     ui->advanceWidget->hide();
@@ -225,7 +227,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::load_saved_colors(){
+void MainWindow::load_saved_colors()
+{
     QFile file(setting_path+"/saved.colors");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
       return;
@@ -239,7 +242,8 @@ void MainWindow::load_saved_colors(){
     file.close();
 }
 
-void MainWindow::add_to_table(const QString colorStr,bool saving){
+void MainWindow::add_to_table(const QString colorStr,bool saving)
+{
     QColor color = QColor(colorStr);
     if(color.isValid()){
         int nextRow;
