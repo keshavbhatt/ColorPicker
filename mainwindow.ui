@@ -480,7 +480,7 @@ p, li { white-space: pre-wrap; }
     <string>Settings and About</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+P</string>
+    <string>Ctrl+Shift+P</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
@@ -526,8 +526,8 @@ p, li { white-space: pre-wrap; }
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="icons.qrc"/>
   <include location="breeze.qrc"/>
+  <include location="icons.qrc"/>
  </resources>
  <connections/>
 </ui>
