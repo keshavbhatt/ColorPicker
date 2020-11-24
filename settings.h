@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QSettings>
+#include <QKeyEvent>
 
 namespace Ui {
 class Settings;
@@ -26,6 +27,8 @@ signals:
     void switchAdvanceMode(bool checked);
     void switchSimpleMode(bool checked);
 
+protected slots:
+    void keyPressEvent(QKeyEvent *e);
 private slots:
     void on_clearColorsPushButton_clicked();
 

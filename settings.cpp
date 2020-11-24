@@ -15,6 +15,13 @@ Settings::Settings(QWidget *parent,QString setting_path) :
     this->setting_path = setting_path;
 }
 
+void Settings::keyPressEvent(QKeyEvent *e)
+{
+    //esc key to close settings widget
+    if(e->key() == Qt::Key_Escape)
+        this->close();
+}
+
 void Settings::setAdvanceMode()
 {
     ui->advance->blockSignals(true);
