@@ -1,17 +1,17 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/app.png</file>
-        <file>icons/app-32.png</file>
-        <file>icons/app-64.png</file>
-        <file>icons/app-128.png</file>
-        <file>icons/donate_paypal.png</file>
-        <file>icons/rate.png</file>
-        <file>icons/remove2.png</file>
-        <file>icons/url.png</file>
-        <file>icons/close.png</file>
-        <file>icons/settings.png</file>
-        <file>icons/app-132.png</file>
-        <file>icons/clipboard_copy.png</file>
-        <file>icons/switch.png</file>
+        <file>icons/color-picker.png</file>
+        <file>icons/32/color-picker.png</file>
+        <file>icons/64/color-picker.png</file>
+        <file>icons/128/color-picker.png</file>
+        <file>icons/32/donate_paypal.png</file>
+        <file>icons/32/rate.png</file>
+        <file>icons/32/remove2.png</file>
+        <file>icons/20/url.png</file>
+        <file>icons/20/close.png</file>
+        <file>icons/20/settings.png</file>
+        <file>icons/132/color-picker.png</file>
+        <file>icons/32/clipboard_copy.png</file>
+        <file>icons/32/switch.png</file>
     </qresource>
 </RCC>

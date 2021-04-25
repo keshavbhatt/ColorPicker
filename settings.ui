@@ -71,7 +71,7 @@
         </property>
         <property name="icon">
          <iconset resource="icons.qrc">
-          <normaloff>:/icons/remove2.png</normaloff>:/icons/remove2.png</iconset>
+          <normaloff>:/icons/32/remove2.png</normaloff>:/icons/32/remove2.png</iconset>
         </property>
        </widget>
       </item>
@@ -114,7 +114,7 @@
             </property>
             <property name="icon">
              <iconset resource="icons.qrc">
-              <normaloff>:/icons/donate_paypal.png</normaloff>:/icons/donate_paypal.png</iconset>
+              <normaloff>:/icons/32/donate_paypal.png</normaloff>:/icons/32/donate_paypal.png</iconset>
             </property>
            </widget>
           </item>
@@ -125,7 +125,7 @@
             </property>
             <property name="icon">
              <iconset resource="icons.qrc">
-              <normaloff>:/icons/url.png</normaloff>:/icons/url.png</iconset>
+              <normaloff>:/icons/20/url.png</normaloff>:/icons/20/url.png</iconset>
             </property>
            </widget>
           </item>
@@ -136,7 +136,7 @@
             </property>
             <property name="icon">
              <iconset resource="icons.qrc">
-              <normaloff>:/icons/rate.png</normaloff>:/icons/rate.png</iconset>
+              <normaloff>:/icons/32/rate.png</normaloff>:/icons/32/rate.png</iconset>
             </property>
            </widget>
           </item>
