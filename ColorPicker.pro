@@ -61,7 +61,7 @@ DATADIR = $$PREFIX/share
 
 target.path = $$BINDIR
 
-icon.files = icons/app.png
+icon.files = icons/color-picker.png
 icon.path = $$DATADIR/icons/hicolor/512x512/apps/
 
 desktop.files = color-picker.desktop

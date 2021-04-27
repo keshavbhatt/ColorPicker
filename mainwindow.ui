@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="icons.qrc">
-    <normaloff>:/icons/app-128.png</normaloff>:/icons/app-128.png</iconset>
+    <normaloff>:/icons/128/color-picker.png</normaloff>:/icons/128/color-picker.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -332,7 +332,7 @@ p, li { white-space: pre-wrap; }
              </property>
              <property name="icon">
               <iconset resource="icons.qrc">
-               <normaloff>:/icons/clipboard_copy.png</normaloff>:/icons/clipboard_copy.png</iconset>
+               <normaloff>:/icons/32/clipboard_copy.png</normaloff>:/icons/32/clipboard_copy.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -474,7 +474,7 @@ p, li { white-space: pre-wrap; }
   <action name="actionSettingsAndAbout">
    <property name="icon">
     <iconset resource="icons.qrc">
-     <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
+     <normaloff>:/icons/20/settings.png</normaloff>:/icons/20/settings.png</iconset>
    </property>
    <property name="text">
     <string>Settings and About</string>
@@ -489,7 +489,7 @@ p, li { white-space: pre-wrap; }
   <action name="actionQuit">
    <property name="icon">
     <iconset resource="icons.qrc">
-     <normaloff>:/icons/close.png</normaloff>:/icons/close.png</iconset>
+     <normaloff>:/icons/20/close.png</normaloff>:/icons/20/close.png</iconset>
    </property>
    <property name="text">
     <string>Quit</string>
@@ -504,7 +504,7 @@ p, li { white-space: pre-wrap; }
   <action name="actionswitchMode">
    <property name="icon">
     <iconset resource="icons.qrc">
-     <normaloff>:/icons/switch.png</normaloff>:/icons/switch.png</iconset>
+     <normaloff>:/icons/32/switch.png</normaloff>:/icons/32/switch.png</iconset>
    </property>
    <property name="text">
     <string>Switch Mode</string>
