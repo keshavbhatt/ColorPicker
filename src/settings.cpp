@@ -7,7 +7,7 @@
 #include <QFile>
 #include <QUrl>
 
-Settings::Settings(QWidget *parent,QString setting_path) :
+Settings::Settings(QWidget *parent, const QString &setting_path) :
     QWidget(parent),
     ui(new Ui::Settings)
 {
@@ -47,7 +47,7 @@ Settings::~Settings()
     delete ui;
 }
 
-void Settings::setTheme(QString themeName)
+void Settings::setTheme(const QString &themeName)
 {
     if(themeName.contains("Dark")){
         ui->themeComboBox->setCurrentIndex(2);
@@ -82,7 +82,7 @@ void Settings::on_ratePushButton_clicked()
 
 void Settings::on_themeComboBox_currentIndexChanged(const QString &arg1)
 {
-    emit themeChnaged(arg1);
+    emit themeChanged(arg1);
 }
 
 void Settings::on_advance_toggled(bool checked)
