@@ -3,7 +3,7 @@
 #include <QEvent>
 #include <QMouseEvent>
 
-ColorDialog::ColorDialog(QWidget *parent,QColor color) :
+ColorDialog::ColorDialog(QWidget *parent, const QColor &color) :
     QColorDialog(color,parent)
 {
     setWindowFlags(Qt::Widget);

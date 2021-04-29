@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->saved->clearContents();
         ui->saved->model()->removeRows(0, ui->saved->rowCount());
     });
-    connect(settingsWidget,&Settings::themeChnaged,[=](QString themeName){
+    connect(settingsWidget,&Settings::themeChanged,[=](const QString &themeName){
         if(themeName.contains("Dark")){
             settings.setValue("theme",themeName);
             setStyle(":/dark.qss");
@@ -81,7 +81,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 
-    connect(colorDialog,&ColorDialog::currentColorChanged,[=](const QColor color){
+    connect(colorDialog,&ColorDialog::currentColorChanged,[=](const QColor &color){
             ui->argb->setText(color.name(QColor::HexArgb));
 
             ui->cmyk->setText(getCMYK(color));
@@ -113,7 +113,7 @@ MainWindow::MainWindow(QWidget *parent) :
     colorDialog->setCurrentColor(QColor("red"));//TODO load color from last session
 
 
-    connect(ui->bgColor,&QLineEdit::textChanged,[=](const QString text){
+    connect(ui->bgColor,&QLineEdit::textChanged,[=](const QString &text){
         QColor color = QColor(text.trimmed());
         if(color.isValid()){
             ui->textBrowser->setBackground(color);

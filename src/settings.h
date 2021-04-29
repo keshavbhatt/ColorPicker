@@ -14,16 +14,16 @@ class Settings : public QWidget
     Q_OBJECT
 
 public:
-    explicit Settings(QWidget *parent = nullptr, QString setting_path = "");
+    explicit Settings(QWidget *parent = nullptr, const QString &setting_path = "");
     ~Settings();
 public slots:
-    void setTheme(QString themeName);
+    void setTheme(const QString &themeName);
     void setAdvanceMode();
     void setSimpleMode();
     void showAbout();
 signals:
     void empty_saved_table();
-    void themeChnaged(QString themeName);
+    void themeChanged(const QString &themeName);
     void switchAdvanceMode(bool checked);
     void switchSimpleMode(bool checked);
 
