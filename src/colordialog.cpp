@@ -3,20 +3,15 @@
 #include <QEvent>
 #include <QMouseEvent>
 
-ColorDialog::ColorDialog(QWidget *parent, const QColor &color) :
-    QColorDialog(color,parent)
+ColorDialog::ColorDialog(QWidget *parent, const QColor &color) : QColorDialog(color, parent)
 {
     setWindowFlags(Qt::Widget);
-    setOptions(QColorDialog::NoButtons | QColorDialog::DontUseNativeDialog | QColorDialog::ShowAlphaChannel );
+    setOptions(QColorDialog::NoButtons | QColorDialog::DontUseNativeDialog | QColorDialog::ShowAlphaChannel);
 }
 
 void ColorDialog::keyPressEvent(QKeyEvent *e)
 {
-    //prevent esc key close the ColorDialog widget
-    if(e->key() != Qt::Key_Escape)
+    // prevent esc key close the ColorDialog widget
+    if (e->key() != Qt::Key_Escape)
         QDialog::keyPressEvent(e);
 }
-
-
-
-
