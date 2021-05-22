@@ -1,35 +1,40 @@
 #ifndef PREVIEWER_H
 #define PREVIEWER_H
 
-#include <QObject>
-#include <QWidget>
-#include <QTextBrowser>
-#include <QDropEvent>
 #include <QDragEnterEvent>
+#include <QDropEvent>
 #include <QMimeData>
 #include <QMouseEvent>
+#include <QObject>
+#include <QTextBrowser>
 #include <QWheelEvent>
+#include <QWidget>
 
 class Previewer : public QTextBrowser
 {
     Q_OBJECT
-public:
+  public:
     Previewer(QWidget *parent = nullptr);
-public slots:
-    void setBackground(QColor color);
-    QString getParaText();
-protected slots:
-    void dropEvent(QDropEvent *event);
-    void dragEnterEvent(QDragEnterEvent *event);
-    void dragMoveEvent(QDragMoveEvent *event);
 
-    virtual void wheelEvent(QWheelEvent *event)
-      {
-        if(event->modifiers() & Qt::ControlModifier)
-           event->ignore();
+  public slots:
+    void setBackground(QColor color);
+
+    QString getParaText();
+
+  protected:
+    void dropEvent(QDropEvent *event) override;
+
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    
+    void dragMoveEvent(QDragMoveEvent *event) override;
+
+    void wheelEvent(QWheelEvent *event) override
+    {
+        if (event->modifiers() & Qt::ControlModifier)
+            event->ignore();
         else
-          QTextBrowser::wheelEvent(event);
-      }
- };
+            QTextBrowser::wheelEvent(event);
+    }
+};
 
 #endif // PREVIEWER_H
