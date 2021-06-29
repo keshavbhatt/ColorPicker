@@ -114,7 +114,9 @@ void Settings::showAbout()
                   "<p align='center' style=' margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; "
                   "-qt-block-indent:0; text-indent:0px;'>Website: https://ktechpit.com</p>"
                   "<p align='center' style=' margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; "
-                  "-qt-block-indent:0; text-indent:0px;'>Runtime: Qt 5.5.1</p>"
+                  "-qt-block-indent:0; text-indent:0px;'>Runtime: Qt "
+                  QT_VERSION_STR
+                  "</p>"
                   "<p align='center' style=' margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; "
                   "-qt-block-indent:0; text-indent:0px;'>Version: " +
                   QApplication::applicationVersion() +
