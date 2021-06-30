@@ -78,11 +78,13 @@ void Settings::on_girhubPushButton_clicked()
     QDesktopServices::openUrl(QUrl("https://github.com/keshavbhatt/ColorPicker"));
 }
 
+#ifdef COLORPICKER_SNAPCRAFT_BUILD
 void Settings::on_ratePushButton_clicked()
 {
     QDesktopServices::openUrl(QUrl("snap://color-picker"));
 }
 
+#endif
 void Settings::on_themeComboBox_currentIndexChanged(const QString &arg1)
 {
     emit themeChanged(arg1);
