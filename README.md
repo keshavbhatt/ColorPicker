@@ -16,20 +16,41 @@ Color Picker features include:
 
 # Requirements
 
-* Qt5x or above
+* Qt5 or above
 
 # Build instructions
-For Linux, Windows and Mac
-**CLI method:**
-* Clone the project (`git clone https://github.com/keshavbhatt/ColorPicker`)
-* In src directory run `qmake` to configure the project
-* Now run `make` if the previous step proceeded successfully 
 
-**GUI Method:**
-* Clone the project (`git clone https://github.com/keshavbhatt/ColorPicker`)
+For Linux, Windows and Mac. In all cases, you need a copy of the code:
+
+```sh
+git clone https://github.com/keshavbhatt/ColorPicker
+```
+
+## CLI method
+
+These instructions perform an out-of-tree build, which is easier to manage.
+
+```sh
+mkdir build
+cd build
+qmake ../src
+make
+```
+
+Assuming everything runs correctly, you can create an installation directory like so:
+
+```sh
+make INSTALL_ROOT=/path/to/installation install
+```
+
+This is useful when preparing to package ColorPicker for distribution.
+If you just want to install it locally, leave out the `INSTALL_ROOT` parameter.
+
+## GUI Method
+
 * Open the `.pro` file in Qt creator
-* Configure with one of your preferred toolkit version (Should be Qt5x or above)
-* Once project is configured, Press Build or Run button to perform respective action 
+* Configure with one of your preferred toolkit version (Should be Qt5 or above)
+* Once project is configured, Press Build or Run button to perform respective action
 
 # Install and project status
 
