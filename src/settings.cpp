@@ -11,6 +11,12 @@ Settings::Settings(QWidget *parent, const QString &setting_path) : QWidget(paren
 {
     ui->setupUi(this);
     this->setting_path = setting_path;
+
+#ifdef COLORPICKER_SNAPCRAFT_BUILD
+    ui->ratePushButton->show();
+#else
+    ui->ratePushButton->hide();
+#endif
 }
 
 void Settings::keyPressEvent(QKeyEvent *e)
