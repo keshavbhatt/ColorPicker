@@ -52,6 +52,9 @@ parts:
      source: src/
      plugin: qmake
      qt-version: qt5
+# TODO: Change this to qmake-parameters when updating to from core18 to core20
+     options:
+       - "DEFINES+=COLORPICKER_SNAPCRAFT_BUILD"
      override-build: |
             snapcraftctl build
             sed -i 's|Icon=.*|Icon=${SNAP}/meta/gui/icon.png|g' ${SNAPCRAFT_PART_SRC}/color-picker.desktop
