@@ -64,6 +64,12 @@ If you just want to install it locally, leave out the `INSTALL_ROOT` parameter.
 
     snap install color-picker
 
+## AUR
+
+You can install it from the AUR:
+
+https://aur.archlinux.org/packages/colorpicker-keshavbhatt/
+
 
 # Screenshot (could be old)
 ![ColorPicker Application for Linux Desktop](https://github.com/keshavbhatt/ColorPicker/blob/master/screenshots/1.jpg?raw=true)
