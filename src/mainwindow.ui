@@ -396,6 +396,15 @@ li.checked::marker { content: &quot;\2612&quot;; }
            <property name="cornerButtonEnabled">
             <bool>false</bool>
            </property>
+           <attribute name="horizontalHeaderHighlightSections">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="verticalHeaderHighlightSections">
+            <bool>false</bool>
+           </attribute>
            <column>
             <property name="text">
              <string>HTML</string>
