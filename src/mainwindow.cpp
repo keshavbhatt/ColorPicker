@@ -288,10 +288,11 @@ void MainWindow::add_to_table(const QString colorStr, bool saving)
         QString hsv = getHSV(color);
         QString hexArgb = color.name(QColor::HexArgb);
         QString rgb = getRGB(color);
+        QString rgb01 = getRGB01(color);
         QString cymk = getCMYK(color);
 
         QStringList columnData;
-        columnData << html << hexArgb << hsv << rgb << cymk << "color"
+        columnData << html << hexArgb << hsv << rgb << rgb01 << cymk << "color"
                    << "delete";
 
         // qDebug()<<columnData;
@@ -398,6 +399,14 @@ QString MainWindow::getRGB(const QColor color)
     return QString::number(r) + "," + QString::number(g) + "," + QString::number(b);
 }
 
+QString MainWindow::getRGB01(const QColor color)
+{
+    double r = color.convertTo(QColor::Rgb).red() / 255.0;
+    double g = color.convertTo(QColor::Rgb).green() / 255.0;
+    double b = color.convertTo(QColor::Rgb).blue() / 255.0;
+    return QString::number(r, 'f', 2) + ", " + QString::number(g, 'f', 2) + ", " + QString::number(b, 'f', 2);
+}
+
 QString MainWindow::getCMYK(const QColor color)
 {
     int c = color.convertTo(QColor::Cmyk).cyan();
@@ -417,7 +426,15 @@ void MainWindow::on_saved_cellClicked(int row, int column)
     QColor color(colorname);
 
     int x, y, z, k;
-    if (colorname.contains(","))
+    if (colorname.contains(", "))
+    {
+        QStringList val = colorname.split(", ");
+        x = val.at(0).toFloat() * 255;
+        y = val.at(1).toFloat() * 255;
+        z = val.at(2).toFloat() * 255;
+        color = QColor::fromRgb(x, y, z);
+    }
+    else if (colorname.contains(","))
     {
         QStringList val = colorname.split(",");
         if (val.count() == 4)
@@ -450,7 +467,7 @@ void MainWindow::on_saved_cellClicked(int row, int column)
         colorDialog->setCurrentColor(color);
         ui->colorIndicator->setStyleSheet("background-color:" + color.name());
         ui->type->setText(ui->saved->horizontalHeaderItem(column)->text());
-        if (colorname.contains(" "))
+        if (colorname.contains(" ") && !colorname.contains(", "))
         {
             ui->code->setText(colorname.replace(" ", ","));
         }
