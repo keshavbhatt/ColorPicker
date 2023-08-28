@@ -508,7 +508,7 @@ void MainWindow::on_copy_clicked()
     QClipboard *clipboard = QGuiApplication::clipboard();
     ui->code->selectAll();
     QString code = ui->code->text();
-    if (code.contains(" "))
+    if (code.contains(" ") && !code.contains(", "))
     {
         code = code.replace(" ", ",");
     }
