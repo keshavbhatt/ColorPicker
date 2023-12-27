@@ -50,7 +50,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         else if (themeName.contains("System"))
         {
             settings.setValue("theme", themeName);
-            qApp->setStyleSheet("");
+            this->setStyleSheet("");
         }
         foreach (QSpinBox *spinbox, colorDialog->findChildren<QSpinBox *>())
         {
@@ -237,7 +237,7 @@ void MainWindow::setStyle(QString fname)
         qWarning("Unable to open file");
         return;
     }
-    qApp->setStyleSheet(styleSheet.readAll());
+    this->setStyleSheet(styleSheet.readAll());
     styleSheet.close();
 }
 
