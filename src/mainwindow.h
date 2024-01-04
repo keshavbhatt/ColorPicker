@@ -36,6 +36,8 @@ class MainWindow : public QMainWindow
 
     QString getRGB(const QColor color);
 
+    QString getRGB01(const QColor color);
+
     void invalidColor();
 
     QString getCMYK(const QColor color);
