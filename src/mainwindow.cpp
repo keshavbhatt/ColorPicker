@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include <QClipboard>
 #include <QDebug>
-#include <QDesktopWidget>
 #include <QFile>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -21,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     this->setWindowTitle(QCoreApplication::applicationName());
 
     settings.setObjectName("app_settings");
-    setting_path = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+    setting_path = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
 
     if (!QDir(setting_path).exists())
     {
@@ -134,7 +133,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         {
             btn->setIconSize(QSize(18, 18));
             btn->setIcon(QIcon(":/dark/picker.png"));
-            btn->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_P));
+            btn->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_P));
             btn->setToolTip("Pick color from Screen (" + btn->shortcut().toString() + ")");
         }
         if (btn->text().contains("Add to Custom Colors"))
@@ -476,7 +475,7 @@ void MainWindow::invalidColor()
 
 void MainWindow::on_actionSettingsAndAbout_triggered()
 {
-    settingsWidget->move(QApplication::desktop()->screen()->rect().center() - this->rect().center());
+    settingsWidget->move(this->screen()->geometry().center() - this->rect().center());
     settingsWidget->showNormal();
     settingsWidget->showAbout();
 }

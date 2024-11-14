@@ -49,7 +49,7 @@ class Settings : public QWidget
 
     void on_ratePushButton_clicked();
 
-    void on_themeComboBox_currentIndexChanged(const QString &arg1);
+    void on_themeComboBox_currentTextChanged(const QString &arg1);
 
     void on_advance_toggled(bool checked);
 
