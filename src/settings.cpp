@@ -89,7 +89,7 @@ void Settings::on_ratePushButton_clicked()
     QDesktopServices::openUrl(QUrl("snap://color-picker"));
 }
 
-void Settings::on_themeComboBox_currentIndexChanged(const QString &arg1)
+void Settings::on_themeComboBox_currentTextChanged(const QString &arg1)
 {
     emit themeChanged(arg1);
 }
