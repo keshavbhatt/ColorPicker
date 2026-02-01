@@ -1,5 +1,16 @@
 # ColorPicker App
 ColorPicker is a powerful screen color picker based on Qt's QColorDialog Class.
+---
+
+📢 **Not Maintained anymore,** use successor: **ColorSmith**
+
+Snap Store: https://snapcraft.io/colorsmith
+
+Flathub: https://flathub.org/en/apps/com.ktechpit.colorsmith
+
+Source code: https://github.com/keshavbhatt/ColorSmith
+
+---
 
 A colour picker and colour editor for web designers and digital artists, With Color Picker, identifying the colours, saving and editing is a quick and simple job.
 
